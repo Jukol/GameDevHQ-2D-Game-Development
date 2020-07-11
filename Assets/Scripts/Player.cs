@@ -5,8 +5,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    private float _speed = 3.5f;
-    private float _speedMultiplier = 2.0f;
+    private float _speed = 2.0f;
+    private float _speedMultiplier = 3.5f;
+    private float _shiftSpeedMultiplier = 3.0f;
     [SerializeField]
     private GameObject _laserPrefab;
     [SerializeField]
@@ -78,7 +79,16 @@ public class Player : MonoBehaviour
 
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
 
- 
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            transform.Translate(direction * _speed * _shiftSpeedMultiplier * Time.deltaTime);
+        }
+        else
+        {
+            transform.Translate(direction * _speed * Time.deltaTime);
+        }
+        
         transform.Translate(direction * _speed * Time.deltaTime);
 
         

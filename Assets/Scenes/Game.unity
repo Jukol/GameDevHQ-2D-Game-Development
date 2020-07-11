@@ -1590,7 +1590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3dcb322790a30c4090bea99126bae88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
+  _speed: 3
   _laserPrefab: {fileID: 6379376840128550316, guid: 3a6bbe54062328644aabb950a7d8483e,
     type: 3}
   _tripleShotPrefab: {fileID: 845186452285716511, guid: 6a6290ae59918ef458da87be100dd353,
