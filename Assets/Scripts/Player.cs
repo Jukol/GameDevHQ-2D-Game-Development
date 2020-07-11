@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private AudioClip _laserSoundClip;
     private AudioSource _audioSource;
+    private bool _oneHit = true;
+    private bool _twoHits = true;
 
     
     // Start is called before the first frame update
@@ -122,12 +124,24 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
-        if (_shieldActive)
+        if (_shieldActive && _oneHit)
+        {
+            _shield.GetComponent<SpriteRenderer>().material.color = Color.yellow;
+            _oneHit = false;
+            return;
+        }
+        else if (_shieldActive && _twoHits)
+        {
+            _shield.GetComponent<SpriteRenderer>().material.color = Color.red;
+            _twoHits = false;
+        }
+        else if (_shieldActive)
         {
             _shieldActive = false;
             _shield.SetActive(false);
-            return;
         }
+
+
 
         _lives--;
 
