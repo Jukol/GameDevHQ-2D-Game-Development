@@ -77,7 +77,7 @@ public class UIManager : MonoBehaviour
     
     IEnumerator OutOfAmmoFlickerText()
     {
-        int i = 5;
+        int i = 3;
         while (i > 0)
         {
             _outOfAmmo.gameObject.SetActive(true);

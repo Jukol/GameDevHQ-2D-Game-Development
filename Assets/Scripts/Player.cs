@@ -29,8 +29,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private AudioClip _laserSoundClip;
     private AudioSource _audioSource;
-    private bool _oneHit = true;
-    private bool _twoHits = true;
+    private int _shieldStrength = 3;
     [SerializeField]
     private int _ammo = 15;
     public bool flickerStarted;
@@ -136,26 +135,36 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
-        if (_shieldActive && _oneHit)
+        if (_shieldActive && _shieldStrength == 3)
         {
             _shield.GetComponent<SpriteRenderer>().material.color = Color.yellow;
-            _oneHit = false;
+            _shieldStrength--;
             return;
         }
-        else if (_shieldActive && _twoHits)
+        else if (_shieldActive && _shieldStrength == 2)
         {
             _shield.GetComponent<SpriteRenderer>().material.color = Color.red;
-            _twoHits = false;
+            _shieldStrength--;
+            return;
         }
-        else if (_shieldActive)
+        else if (_shieldActive && _shieldStrength == 1)
+        {
+            _shield.GetComponent<SpriteRenderer>().material.color = Color.clear;
+            _shieldStrength--;
+            return;
+        }
+        else if (_shieldActive && _shieldStrength == 0)
         {
             _shieldActive = false;
             _shield.SetActive(false);
         }
 
 
-
-        _lives--;
+        if (!_shieldActive)
+        {
+            _lives--;
+        }
+        
 
         if (_lives == 2)
         {
@@ -202,7 +211,15 @@ public class Player : MonoBehaviour
     public void ShieldActive()
     {
         _shieldActive = true;
+        _shieldStrength = 3;
         _shield.SetActive(true);
+        _shield.GetComponent<SpriteRenderer>().material.color = Color.white;
+    }
+
+    public void AmmoActive()
+    {
+        _ammo += 5;
+        _uiManager.UpdateAmmo(_ammo);
     }
 
     public void AddScore(int points)
