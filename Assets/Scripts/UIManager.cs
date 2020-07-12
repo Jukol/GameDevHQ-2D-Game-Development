@@ -9,6 +9,10 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Text _scoreText;
     [SerializeField]
+    private Text _ammoText;
+    [SerializeField]
+    private Text _outOfAmmo;
+    [SerializeField]
     private Image _livesImg;
     [SerializeField]
     private Sprite[] _livesSprites;
@@ -18,12 +22,16 @@ public class UIManager : MonoBehaviour
     private GameObject _restartText;
     [SerializeField]
     private GameManager _gameManager;
+    private Player _player;
+
  
     // Start is called before the first frame update
     void Start()
     {
         _scoreText.text = "Score: " + 0;
         _restartText.SetActive(false);
+        _outOfAmmo.gameObject.SetActive(false);
+        _player = GameObject.FindWithTag("Player").GetComponent<Player>();
     }
 
 
@@ -56,4 +64,29 @@ public class UIManager : MonoBehaviour
 
     }
 
+    public void UpdateAmmo(int ammo)
+    {
+        _ammoText.text = "Ammo: " + ammo;
+    }
+
+    
+    public void OutOfAmmoFlicker()
+    {
+        StartCoroutine(OutOfAmmoFlickerText());
+    }
+    
+    IEnumerator OutOfAmmoFlickerText()
+    {
+        int i = 5;
+        while (i > 0)
+        {
+            _outOfAmmo.gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+            _outOfAmmo.gameObject.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
+            i--;
+            
+        }
+        _player.flickerStarted = false;
+    }
 }

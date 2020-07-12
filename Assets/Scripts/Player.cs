@@ -31,6 +31,9 @@ public class Player : MonoBehaviour
     private AudioSource _audioSource;
     private bool _oneHit = true;
     private bool _twoHits = true;
+    [SerializeField]
+    private int _ammo = 15;
+    public bool flickerStarted;
 
     
     // Start is called before the first frame update
@@ -61,15 +64,24 @@ public class Player : MonoBehaviour
         {
             _audioSource.clip = _laserSoundClip;
         }
+
+        _uiManager.UpdateAmmo(_ammo);
     }
 
     // Update is called once per frame
     void Update()
     {
         CalculateMovement();
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire && _ammo > 0)
         {
             FireLaser();
+            _ammo--;
+            _uiManager.UpdateAmmo(_ammo);
+        }
+        else if (Input.GetKeyDown(KeyCode.Space) && _ammo <= 0 && !flickerStarted)
+        {
+            flickerStarted = true;
+            _uiManager.OutOfAmmoFlicker();
         }
             
     }
