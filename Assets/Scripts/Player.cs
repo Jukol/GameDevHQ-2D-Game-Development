@@ -222,6 +222,24 @@ public class Player : MonoBehaviour
         _uiManager.UpdateAmmo(_ammo);
     }
 
+    public void HealthActive()
+    {
+        _lives++;
+        if (_lives > 3)
+        {
+            _lives = 3;
+        }
+        _uiManager.UpdateLives(_lives);
+        if (_rightEngine.activeSelf == true)
+        {
+            _rightEngine.SetActive(false);
+        }
+        else if (_leftEngine.activeSelf == true)
+        {
+            _leftEngine.SetActive(false);
+        }
+    }
+
     public void AddScore(int points)
     {
         _score += points;
