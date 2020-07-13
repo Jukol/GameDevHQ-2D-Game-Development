@@ -1626,6 +1626,7 @@ MonoBehaviour:
   - {fileID: 4759316699878087955, guid: f1a51ffa79204e443b2278d20ca3086c, type: 3}
   - {fileID: 8369407124368218026, guid: 6a7be8909be796b42b1f798482664228, type: 3}
   - {fileID: 2712072827812021860, guid: b4f143ce542849f42921ce1c11e1c6ad, type: 3}
+  - {fileID: 2546473940062240449, guid: b7ddc72be66afbb418be26e4e9046b69, type: 3}
 --- !u!4 &1574508912
 Transform:
   m_ObjectHideFlags: 0
@@ -1678,6 +1679,8 @@ MonoBehaviour:
   _laserPrefab: {fileID: 6379376840128550316, guid: 3a6bbe54062328644aabb950a7d8483e,
     type: 3}
   _tripleShotPrefab: {fileID: 845186452285716511, guid: 6a6290ae59918ef458da87be100dd353,
+    type: 3}
+  _multiShotPrefab: {fileID: 845186452285716511, guid: 0c7ee22e4c54ca548b31c71645a7c41b,
     type: 3}
   _lives: 3
   _shield: {fileID: 364126155}

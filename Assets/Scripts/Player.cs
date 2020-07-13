@@ -12,12 +12,15 @@ public class Player : MonoBehaviour
     private GameObject _laserPrefab;
     [SerializeField]
     private GameObject _tripleShotPrefab;
+    [SerializeField]
+    private GameObject _multiShotPrefab;
     private float _fireRate = 0.15f;
     private float _canFire = -1f;
     [SerializeField]
     private int _lives = 3;
     private SpawnManager _spawnManager;
     private bool _tripleShotActive;
+    private bool _multiShotActive;
     private bool _shieldActive;
     [SerializeField]
     private GameObject _shield;
@@ -124,7 +127,11 @@ public class Player : MonoBehaviour
         if (_tripleShotActive)
         {
             Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
-        } 
+        }
+        else if (_multiShotActive)
+        {
+            Instantiate(_multiShotPrefab, transform.position, Quaternion.identity);
+        }
         else
         {
             Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.05f, 0), Quaternion.identity);
@@ -238,6 +245,18 @@ public class Player : MonoBehaviour
         {
             _leftEngine.SetActive(false);
         }
+    }
+
+    public void MultiShotActive()
+    {
+        _multiShotActive = true;
+        StartCoroutine(MultiShotPowerDownRoutine());
+    }
+
+    IEnumerator MultiShotPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5.0f);
+        _multiShotActive = false;
     }
 
     public void AddScore(int points)

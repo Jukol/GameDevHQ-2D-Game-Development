@@ -10,7 +10,9 @@ public class SpawnManager : MonoBehaviour
     private GameObject _enemyContainer;
     [SerializeField]
     private GameObject[] _powerups;
- 
+    [SerializeField]
+    private int _multiShotToLaunchCount = 2;
+
     private bool _stopSpawning = false;
     
     // Start is called before the first frame update
@@ -46,8 +48,21 @@ public class SpawnManager : MonoBehaviour
         while (_stopSpawning == false)
         {
             Vector3 posToSpawnPowerup = new Vector3(Random.Range(-9.0f, 9.0f), 7, 0);
-            int randomPowerup = Random.Range(0, 5);
-            GameObject newPowerup = Instantiate(_powerups[randomPowerup], posToSpawnPowerup, Quaternion.identity);
+            int randomPowerup = Random.Range(0, 6);
+            if (randomPowerup >= 0 && randomPowerup <= 4)
+            {
+                GameObject newPowerup = Instantiate(_powerups[randomPowerup], posToSpawnPowerup, Quaternion.identity);
+            }
+            else if (randomPowerup == 5 && _multiShotToLaunchCount > 0)
+            {
+                _multiShotToLaunchCount--;
+            }
+            else if (randomPowerup == 5 && _multiShotToLaunchCount == 0)
+            {
+                GameObject newPowerup = Instantiate(_powerups[5], posToSpawnPowerup, Quaternion.identity);
+                _multiShotToLaunchCount = 2;
+            }
+            
             yield return new WaitForSeconds(Random.Range(3.0f, 7.0f));
         }
     }
