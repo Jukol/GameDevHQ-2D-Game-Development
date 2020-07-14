@@ -36,6 +36,11 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int _ammo = 15;
     public bool flickerStarted;
+    [SerializeField]
+    private float _thrusterCoolDownTimer = 10.0f;
+    [SerializeField]
+    private GameObject _bar;
+    private float _barValue;
 
     
     // Start is called before the first frame update
@@ -45,6 +50,8 @@ public class Player : MonoBehaviour
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _audioSource = GetComponent<AudioSource>();
+        _barValue = _bar.transform.localScale.x;
+    
         
         if (_spawnManager == null)
         {
@@ -96,9 +103,16 @@ public class Player : MonoBehaviour
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
 
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && _thrusterCoolDownTimer > 0)
         {
+            _thrusterCoolDownTimer -= Time.deltaTime;
             transform.Translate(direction * _speed * _shiftSpeedMultiplier * Time.deltaTime);
+            ThrustBarUpdate();
+        }
+        
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            StartCoroutine(ThrustTimerRoutine());
         }
         else
         {
@@ -107,7 +121,6 @@ public class Player : MonoBehaviour
         
         transform.Translate(direction * _speed * Time.deltaTime);
 
-        
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.8f, 0), 0);
 
         if (transform.position.x < -11.3f)
@@ -118,6 +131,21 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector3(-11.3f, transform.position.y, 0);
         }
+
+        IEnumerator ThrustTimerRoutine()
+        {
+            yield return new WaitForSeconds(5.0f);
+            while (_thrusterCoolDownTimer < 10.0f)
+            {
+                
+                _thrusterCoolDownTimer += Time.deltaTime;
+                ThrustBarUpdate();
+                yield return new WaitForSeconds(Time.deltaTime);
+            }
+            
+        }
+
+        
     }
 
     void FireLaser()
@@ -264,4 +292,11 @@ public class Player : MonoBehaviour
         _score += points;
         _uiManager.UpdateScore(_score);
     }
+
+    void ThrustBarUpdate()
+    {
+        _barValue = _thrusterCoolDownTimer / 10;
+        _bar.transform.localScale = new Vector3(_barValue, _bar.transform.localScale.y, _bar.transform.localScale.z);
+    }
+
 }
