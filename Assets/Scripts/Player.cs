@@ -41,6 +41,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _bar;
     private float _barValue;
+    [SerializeField]
+    private GameObject _camera;
 
     
     // Start is called before the first frame update
@@ -170,6 +172,8 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
+        _camera.GetComponent<CameraShake>().ShakeCamera();
+        
         if (_shieldActive && _shieldStrength == 3)
         {
             _shield.GetComponent<SpriteRenderer>().material.color = Color.yellow;
