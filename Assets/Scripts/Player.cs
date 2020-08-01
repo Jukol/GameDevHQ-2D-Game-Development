@@ -34,7 +34,9 @@ public class Player : MonoBehaviour
     private AudioSource _audioSource;
     private int _shieldStrength = 3;
     [SerializeField]
-    private int _ammo = 15;
+    private int _ammo;
+    [SerializeField]
+    private int _maxAmmo;
     public bool flickerStarted;
     [SerializeField]
     private float _thrusterCoolDownTimer = 10.0f;
@@ -53,6 +55,7 @@ public class Player : MonoBehaviour
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _audioSource = GetComponent<AudioSource>();
         _barValue = _bar.transform.localScale.x;
+        _ammo = _maxAmmo;
     
         
         if (_spawnManager == null)
@@ -76,7 +79,7 @@ public class Player : MonoBehaviour
             _audioSource.clip = _laserSoundClip;
         }
 
-        _uiManager.UpdateAmmo(_ammo);
+        _uiManager.UpdateAmmo(_ammo, _maxAmmo);
     }
 
     // Update is called once per frame
@@ -87,7 +90,7 @@ public class Player : MonoBehaviour
         {
             FireLaser();
             _ammo--;
-            _uiManager.UpdateAmmo(_ammo);
+            _uiManager.UpdateAmmo(_ammo, _maxAmmo);
         }
         else if (Input.GetKeyDown(KeyCode.Space) && _ammo <= 0 && !flickerStarted)
         {
@@ -258,7 +261,7 @@ public class Player : MonoBehaviour
     public void AmmoActive()
     {
         _ammo += 5;
-        _uiManager.UpdateAmmo(_ammo);
+        _uiManager.UpdateAmmo(_ammo, _maxAmmo);
     }
 
     public void HealthActive()
