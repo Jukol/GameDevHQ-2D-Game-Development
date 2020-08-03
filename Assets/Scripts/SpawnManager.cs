@@ -12,15 +12,15 @@ public class SpawnManager : MonoBehaviour
     private GameObject[] _powerups;
     [SerializeField]
     private int _multiShotToLaunchCount = 2;
+    [SerializeField] 
+    private int _numberOfWaves = 10;
+    [SerializeField]
+    private int _waveTimer = 60;
+    [SerializeField] 
+    private float _timerBetweenWaves;
 
     private bool _stopSpawning = false;
     
-    // Start is called before the first frame update
-    void Start()
-    {
- 
-    }
-
     public void StartSpawning()
     {
         StartCoroutine(SpawnEnemyRoutine());
@@ -29,16 +29,23 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnEnemyRoutine()
     {
-        yield return new WaitForSeconds(3.0f);
-
-        while (_stopSpawning == false)
+        for (int i = 0; i < _numberOfWaves; i++)
         {
-            Vector3 posToSpawn = new Vector3(Random.Range(-9.0f, 9.0f), 7, 0);
-            GameObject newEnemy = Instantiate(_enemyPrefab, posToSpawn, Quaternion.identity);
-            newEnemy.transform.parent = _enemyContainer.transform;
-            yield return new WaitForSeconds(5.0f);
-            
+            float startTime = Time.time;
+
+            while (((Time.time - startTime) <= _waveTimer) && _stopSpawning == false)
+            {
+                Debug.Log("Wave: " + (i + 1));
+                Vector3 posToSpawn = new Vector3(Random.Range(-9.0f, 9.0f), 7, 0);
+                GameObject newEnemy = Instantiate(_enemyPrefab, posToSpawn, Quaternion.identity);
+                newEnemy.transform.parent = _enemyContainer.transform;
+                yield return new WaitForSeconds(_numberOfWaves - i);
+            }
+            yield return new WaitForSeconds(_timerBetweenWaves);
         }
+        
+        
+        
     }
 
     IEnumerator SpawnPowerupRoutine()

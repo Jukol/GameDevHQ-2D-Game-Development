@@ -1429,8 +1429,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -72.991, y: -90.94}
-  m_SizeDelta: {x: 145.98145, y: 30}
+  m_AnchoredPosition: {x: -124.36, y: -90.94}
+  m_SizeDelta: {x: 248.72986, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1131879309
 MonoBehaviour:
@@ -1751,8 +1751,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -72.991, y: -50}
-  m_SizeDelta: {x: 145.98093, y: 30}
+  m_AnchoredPosition: {x: -124.36, y: -50}
+  m_SizeDelta: {x: 248.72897, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1539783722
 MonoBehaviour:
@@ -1835,6 +1835,9 @@ MonoBehaviour:
   - {fileID: 2712072827812021860, guid: b4f143ce542849f42921ce1c11e1c6ad, type: 3}
   - {fileID: 2546473940062240449, guid: b7ddc72be66afbb418be26e4e9046b69, type: 3}
   _multiShotToLaunchCount: 2
+  _numberOfWaves: 5
+  _waveTimer: 90
+  _timerBetweenWaves: 15
 --- !u!4 &1574508912
 Transform:
   m_ObjectHideFlags: 0
@@ -1896,8 +1899,8 @@ MonoBehaviour:
   _rightEngine: {fileID: 465401003}
   _leftEngine: {fileID: 353075494}
   _laserSoundClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
-  _ammo: 15
-  _maxAmmo: 15
+  _ammo: 100
+  _maxAmmo: 100
   flickerStarted: 0
   _thrusterCoolDownTimer: 10
   _bar: {fileID: 1218194079}

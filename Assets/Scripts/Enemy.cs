@@ -14,12 +14,10 @@ public class Enemy : MonoBehaviour
     private AudioSource _audioSource;
     [SerializeField]
     private GameObject _enemyLaserPrefab;
-
     private Vector3 _randomAngle;
-    // Start is called before the first frame update
+    
     void Start()
     {
-
         _player = GameObject.Find("Player").GetComponent<Player>();
         if (_player == null)
         {
@@ -40,20 +38,14 @@ public class Enemy : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
-
-        transform.Translate(_randomAngle * _speed * Time.deltaTime);
+         transform.Translate(_randomAngle * _speed * Time.deltaTime);
         if (transform.position.y < -5.38f)
         {
             float randomX = Random.Range(-9.0f, 9.0f);
             transform.position = new Vector3(randomX, 6.93f, 0);
         }
-
-
-
     }
 
     private void OnTriggerEnter2D(Collider2D other)

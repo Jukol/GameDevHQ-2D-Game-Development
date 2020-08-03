@@ -261,6 +261,10 @@ public class Player : MonoBehaviour
     public void AmmoActive()
     {
         _ammo += 5;
+        if (_ammo > _maxAmmo)
+        {
+            _ammo = _maxAmmo;
+        }
         _uiManager.UpdateAmmo(_ammo, _maxAmmo);
     }
 
