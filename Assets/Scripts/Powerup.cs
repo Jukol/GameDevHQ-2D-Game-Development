@@ -50,6 +50,9 @@ public class Powerup : MonoBehaviour
                     case 5:
                         player.MultiShotActive();
                         break;
+                    case 6:
+                        player.Damage();
+                        break;
                     default:
                         Debug.Log("Default Value");
                         break;

@@ -1828,12 +1828,13 @@ MonoBehaviour:
     type: 3}
   _enemyContainer: {fileID: 57231781}
   _powerups:
-  - {fileID: 7602411220883102073, guid: a39f6c570de724046b288368848998b5, type: 3}
+  - {fileID: 845186452285716511, guid: 6a6290ae59918ef458da87be100dd353, type: 3}
   - {fileID: 2958217346786374507, guid: d08aaac09ecbeae4494de494145b1cdc, type: 3}
   - {fileID: 4759316699878087955, guid: f1a51ffa79204e443b2278d20ca3086c, type: 3}
   - {fileID: 8369407124368218026, guid: 6a7be8909be796b42b1f798482664228, type: 3}
   - {fileID: 2712072827812021860, guid: b4f143ce542849f42921ce1c11e1c6ad, type: 3}
   - {fileID: 2546473940062240449, guid: b7ddc72be66afbb418be26e4e9046b69, type: 3}
+  - {fileID: 2283028276843882158, guid: 02a98560e33395249bcdc3b6a9ef1a08, type: 3}
   _multiShotToLaunchCount: 2
   _numberOfWaves: 5
   _waveTimer: 90
