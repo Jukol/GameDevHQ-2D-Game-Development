@@ -26,13 +26,10 @@ public class EnemyLaser : MonoBehaviour
     }
     void Update()
     {
-        transform.Translate(Vector3.down * _speed * Time.deltaTime);
+        transform.position += -transform.up * _speed * Time.deltaTime;
         if (transform.position.y < -8f)
         {
-            if (transform.parent != null)
-            {
-                Destroy(transform.parent.gameObject);
-            }
+ 
             Destroy(this.gameObject);
         }
     }
