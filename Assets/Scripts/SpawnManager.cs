@@ -52,16 +52,16 @@ public class SpawnManager : MonoBehaviour
         while (_stopSpawning == false)
         {
             Vector3 posToSpawnPowerup = new Vector3(Random.Range(-9.0f, 9.0f), 7, 0);
-            int randomPowerup = Random.Range(0, 7);
-            if (randomPowerup >= 0 && randomPowerup <= 7)
+            int randomPowerup = Random.Range(0, 14);
+            if (randomPowerup >= 0 && randomPowerup <= 14)
             {
                 GameObject newPowerup = Instantiate(_powerups[randomPowerup], posToSpawnPowerup, Quaternion.identity);
             }
-            else if (randomPowerup == 5 && _multiShotToLaunchCount > 0)
+            else if ((randomPowerup == 5 || randomPowerup == 6) && _multiShotToLaunchCount > 0)
             {
                 _multiShotToLaunchCount--;
             }
-            else if (randomPowerup == 5 && _multiShotToLaunchCount == 0)
+            else if ((randomPowerup == 5 || randomPowerup == 6) && _multiShotToLaunchCount == 0)
             {
                 GameObject newPowerup = Instantiate(_powerups[5], posToSpawnPowerup, Quaternion.identity);
                 _multiShotToLaunchCount = 2;
