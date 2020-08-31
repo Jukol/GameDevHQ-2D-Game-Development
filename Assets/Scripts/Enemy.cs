@@ -56,7 +56,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    protected void OnTriggerEnter2D(Collider2D other)
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
@@ -71,7 +71,6 @@ public class Enemy : MonoBehaviour
             _speed = 2.5f;
             _audioSource.Play();
             Destroy(this.gameObject, 2.8f);
-            
         }
 
         if (other.tag == "Laser")

@@ -211,7 +211,8 @@ public class Player : MonoBehaviour
         if (_lives == 2)
         {
             _rightEngine.SetActive(true);
-        } else if (_lives == 1) 
+        } 
+        else if (_lives == 1) 
         {
             _leftEngine.SetActive(true);
         }

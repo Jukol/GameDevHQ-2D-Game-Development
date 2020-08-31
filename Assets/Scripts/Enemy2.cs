@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class Enemy2 : Enemy
 {
-        
+    [SerializeField]
+    private GameObject _shield;
+    private bool _shieldActive = true;
     protected override void Movement()
     {
         transform.position += -transform.up * _speed * Time.deltaTime;
@@ -32,6 +34,57 @@ public class Enemy2 : Enemy
             yield return new WaitForSeconds(1f);
             if (_hit == false)
                 FireLaser();
+        }
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            _hit = true;
+            Player player = other.transform.GetComponent<Player>();
+
+            if (player != null)
+            {
+                player.Damage();
+            }
+            _animator.SetTrigger("OnEnemyDeath");
+            _speed = 2.5f;
+            _audioSource.Play();
+            if (_shieldActive == true)
+            {
+                _shield.SetActive(false);
+                _shieldActive = false;
+            }
+            else
+            {
+                Destroy(this.gameObject, 2.8f);
+            }
+            
+        }
+
+        if (other.tag == "Laser")
+        {
+            _hit = true;
+            Destroy(other.gameObject);
+            if (_shieldActive == true)
+            {
+                _shield.SetActive(false);
+                _shieldActive = false;
+            }
+            else
+            {
+                _animator.SetTrigger("OnEnemyDeath");
+                _speed = 2.0f;
+                _audioSource.Play();
+                if (_player != null)
+                {
+                    _player.AddScore(10);
+                }
+                Destroy(GetComponent<Collider2D>());
+                Destroy(this.gameObject, 2.8f);
+            }
+            
         }
     }
 
