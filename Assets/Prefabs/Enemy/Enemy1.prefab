@@ -52,6 +52,7 @@ MonoBehaviour:
   _player: {fileID: 0}
   _enemyLaserPrefab: {fileID: 6379376840128550316, guid: e83c20ec169ee0742b66cabea39892cd,
     type: 3}
+  minDistanceToPlayer: 3
 --- !u!212 &4853613866790871935
 SpriteRenderer:
   m_ObjectHideFlags: 0

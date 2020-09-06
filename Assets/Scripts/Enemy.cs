@@ -17,6 +17,8 @@ public class Enemy : MonoBehaviour
     protected float angle;
     protected bool _hit;
     protected Transform _target;
+    [SerializeField]
+    protected float minDistanceToPlayer = 2.0f;
 
     protected virtual void Start()
     {
@@ -43,7 +45,16 @@ public class Enemy : MonoBehaviour
  
     protected virtual void Update()
     {
-        Movement();
+        
+        float distance = Vector3.Distance(_target.position, transform.position);
+
+        if (distance <= minDistanceToPlayer)
+        {
+            Debug.Log("Enemy close");
+            Ram();
+        }
+        else
+            Movement();
     }
 
     protected virtual void Movement()
@@ -53,6 +64,31 @@ public class Enemy : MonoBehaviour
         {
             float randomX = Random.Range(-9.0f, 9.0f);
             transform.position = new Vector3(randomX, 6.93f, 0);
+        }
+    }
+
+    protected virtual void Ram()
+    {
+        float x = _target.position.x - transform.position.x;
+        float y = _target.position.y - transform.position.y;
+        float zRotation = Mathf.Atan2(y, x) * Mathf.Rad2Deg;
+        StartCoroutine(Turn(zRotation + 90f, 0.5f));
+        transform.position += -transform.up * 2.0f * Time.deltaTime;
+        if (transform.position.y < -5.38f)
+        {
+            float randomX = Random.Range(-9.0f, 9.0f);
+            transform.position = new Vector3(randomX, 6.93f, 0);
+        }
+    }
+
+    private IEnumerator Turn(float angle, float time)
+    {
+        var fromAngle = transform.rotation;
+        var toAngle = Quaternion.Euler(0, 0, angle);
+        for (var t = 0f; t < 1; t += Time.deltaTime / time)
+        {
+            transform.rotation = Quaternion.Lerp(fromAngle, toAngle, t);
+            yield return null;
         }
     }
 

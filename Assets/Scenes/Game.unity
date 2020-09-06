@@ -1756,10 +1756,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyPrefabs:
-  - {fileID: 7307735007615891778, guid: 0f9cadd59b4cd4341980518e2a830315, type: 3}
-  - {fileID: 7307735007615891778, guid: e6f675d72428eb740b9085261a798b16, type: 3}
   - {fileID: 7307735007615891778, guid: dca2e7d6147a9774db3cc7ad9e9feb5d, type: 3}
-  - {fileID: 7307735007615891778, guid: ee86573d6667aa24db15a2e15dc47bbd, type: 3}
+  - {fileID: 7307735007615891778, guid: dca2e7d6147a9774db3cc7ad9e9feb5d, type: 3}
+  - {fileID: 7307735007615891778, guid: dca2e7d6147a9774db3cc7ad9e9feb5d, type: 3}
+  - {fileID: 7307735007615891778, guid: dca2e7d6147a9774db3cc7ad9e9feb5d, type: 3}
   _enemyContainer: {fileID: 57231781}
   _powerups:
   - {fileID: 7602411220883102073, guid: a39f6c570de724046b288368848998b5, type: 3}

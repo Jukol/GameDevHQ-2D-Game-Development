@@ -23,7 +23,8 @@ public class Enemy3 : Enemy
         }
 
         _audioSource = GetComponent<AudioSource>();
-        
+        _target = _player.GetComponent<Transform>();
+
         StartCoroutine(FireLaserAtRandomTime());
         angle = 30f;
         StartCoroutine(ZigZagRoutine());
@@ -40,7 +41,6 @@ public class Enemy3 : Enemy
             yield return null;
         }
     }
-
 
     private IEnumerator ZigZagRoutine()
     {
