@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
     protected Transform _target;
     [SerializeField]
     protected float minDistanceToPlayer = 2.0f;
+    protected EnemyLaser _enemyLaser;
 
     protected virtual void Start()
     {
@@ -37,9 +38,12 @@ public class Enemy : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _target = _player.GetComponent<Transform>();
 
+
         StartCoroutine(FireLaserAtRandomTime());
         angle = Random.Range(-30f, 30f);
         transform.Rotate(0, 0, angle);
+
+        
     }
 
  
@@ -50,11 +54,14 @@ public class Enemy : MonoBehaviour
 
         if (distance <= minDistanceToPlayer)
         {
-            Debug.Log("Enemy close");
-            Ram();
+             Ram();
         }
         else
             Movement();
+        
+        Debug.DrawRay(transform.position, transform.up * 20, Color.green);
+
+        BehindPlayer();
     }
 
     protected virtual void Movement()
@@ -141,5 +148,18 @@ public class Enemy : MonoBehaviour
             if (_hit == false)
                 FireLaser();
         }
+    }
+
+    ////// Smart Enemy
+    ///Create an enemy type that knows when it’s behind the player, and fires a weapon backwards.
+
+    //Enemy needs to cast a ray from tail. If the ray hits the player, the backward shooting is triggered.
+    //Ray needs origin (Vector3) and direction (Vector3)
+    //Origin is location of Enemy (transform.position)
+    //Direction is opposite of Enemy's rotation:  (transform.up)
+
+    public virtual bool BehindPlayer() //check if behind the player
+    {
+        return Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up), 20f, 1 << 9);
     }
 }
