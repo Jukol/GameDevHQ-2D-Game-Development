@@ -24,7 +24,6 @@ public class Powerup : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            
             Player player = other.transform.GetComponent<Player>();
             AudioSource.PlayClipAtPoint(_clip, transform.position);
             
@@ -59,6 +58,10 @@ public class Powerup : MonoBehaviour
                 }
             }
 
+            Destroy(this.gameObject);
+        }
+        else if (other.tag == "Enemy_Laser")
+        {
             Destroy(this.gameObject);
         }
     }

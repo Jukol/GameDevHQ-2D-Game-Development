@@ -20,6 +20,9 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     protected float minDistanceToPlayer = 2.0f;
     protected EnemyLaser _enemyLaser;
+    protected float _powerupShootFireRate = 0.5f;
+    protected bool _seenPowerup;
+    protected float _timer = 0f;
 
     protected virtual void Start()
     {
@@ -58,10 +61,9 @@ public class Enemy : MonoBehaviour
         }
         else
             Movement();
-        
-        Debug.DrawRay(transform.position, transform.up * 20, Color.green);
 
         BehindPlayer();
+        ShootPowerup();
     }
 
     protected virtual void Movement()
@@ -150,6 +152,8 @@ public class Enemy : MonoBehaviour
         }
     }
 
+
+
     ////// Smart Enemy
     ///Create an enemy type that knows when it’s behind the player, and fires a weapon backwards.
 
@@ -162,4 +166,32 @@ public class Enemy : MonoBehaviour
     {
         return Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up), 20f, 1 << 9);
     }
+
+    //Enemy pickups
+    //Shoot ray. If crossed with powerup, shoot laser and destroy powerup
+
+    protected virtual void ShootPowerup()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(-Vector2.up), 20f, 1 << 10);
+
+        if (hit && !_seenPowerup)
+        {
+            FireLaser();
+            _seenPowerup = true;
+        }
+        else if (hit)
+        {
+            _timer += Time.deltaTime;
+            if (_timer >= _powerupShootFireRate)
+            {
+                FireLaser();
+                _timer = 0f;
+            }
+        }
+        else if (!hit)
+        {
+            _seenPowerup = false;
+        }
+    }
+
 }

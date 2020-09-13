@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3671595618904890262}
   - component: {fileID: 21882089049622128}
   - component: {fileID: 8313311332665380106}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Healh_Powerup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
