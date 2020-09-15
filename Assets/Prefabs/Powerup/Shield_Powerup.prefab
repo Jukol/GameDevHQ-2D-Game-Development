@@ -147,6 +147,7 @@ MonoBehaviour:
   _speed: 3
   powerupID: 2
   _clip: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
+  _player: {fileID: 0}
 --- !u!95 &3202625798480627959
 Animator:
   serializedVersion: 3

@@ -10,14 +10,38 @@ public class Powerup : MonoBehaviour
     private int powerupID; //0 = Triple Shot, 1 = Speed, 2 = Shields, 3 = Ammo_Powerup, 4 = Health, 5 - Multishot
     [SerializeField]
     private AudioClip _clip;
+    [SerializeField]
+    private Player _player;
+    private float _speedToPlayer = 6.0f;
+    bool buttonPushed = false;
 
+    private void Start()
+    {
+        _player = GameObject.Find("Player").GetComponent<Player>();
+    }
     void Update()
     {
-        transform.Translate(Vector3.down * _speed * Time.deltaTime);
-        if (transform.position.y < -5.8f)
+        
+        if (Input.GetKeyDown(KeyCode.C) && buttonPushed == false)
         {
-            Destroy(this.gameObject);
+            RushToPlayer();
+            buttonPushed = true;
         }
+        else if (buttonPushed == true)
+        {
+            RushToPlayer();
+        }
+
+        else
+        {
+            transform.Translate(Vector3.down * _speed * Time.deltaTime);
+            if (transform.position.y < -5.8f)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+        
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -64,5 +88,11 @@ public class Powerup : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+
+    public void RushToPlayer()
+    {
+        float step = _speedToPlayer * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, _player.transform.position, step);
     }
 }
