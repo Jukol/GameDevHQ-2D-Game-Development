@@ -36,7 +36,7 @@ public class SpawnManager : MonoBehaviour
             while (((Time.time - startTime) <= _waveTimer) && _stopSpawning == false)
             {
                 Vector3 posToSpawn = new Vector3(Random.Range(-9.0f, 9.0f), 7, 0);
-                int randomEnemy = Random.Range(0, 4);
+                int randomEnemy = Random.Range(0, 5);
                 GameObject newEnemy = Instantiate(_enemyPrefabs[randomEnemy], posToSpawn, Quaternion.identity);
                 newEnemy.transform.parent = _enemyContainer.transform;
                 yield return new WaitForSeconds(_numberOfWaves - i);
