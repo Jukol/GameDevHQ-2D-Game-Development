@@ -76,6 +76,9 @@ public class Powerup : MonoBehaviour
                     case 6:
                         player.Damage();
                         break;
+                    case 7:
+                        player.MissileActive();
+                        break;
                     default:
                         Debug.Log("Default Value");
                         break;

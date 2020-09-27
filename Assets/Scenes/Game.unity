@@ -1848,6 +1848,8 @@ MonoBehaviour:
   _thrusterCoolDownTimer: 10
   _bar: {fileID: 1218194079}
   _camera: {fileID: 1085792636}
+  _missilePrefab: {fileID: 7667726985278351304, guid: de020af48f58c0b409bf90739a8badb8,
+    type: 3}
 --- !u!212 &1613391804
 SpriteRenderer:
   m_ObjectHideFlags: 0

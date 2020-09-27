@@ -45,6 +45,9 @@ public class Player : MonoBehaviour
     private float _barValue;
     [SerializeField]
     private GameObject _camera;
+    [SerializeField]
+    private GameObject _missilePrefab;
+    private bool _missileActive;
 
     
     // Start is called before the first frame update
@@ -88,7 +91,14 @@ public class Player : MonoBehaviour
         CalculateMovement();
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire && _ammo > 0)
         {
-            FireLaser();
+            if (_missileActive == false)
+            {
+                FireLaser();
+            }
+            else
+            {
+                FireMissile();
+            }
             _ammo--;
             _uiManager.UpdateAmmo(_ammo, _maxAmmo);
         }
@@ -171,6 +181,11 @@ public class Player : MonoBehaviour
         }
 
         _audioSource.Play();
+    }
+
+    void FireMissile()
+    {
+        Instantiate(_missilePrefab, transform.position, Quaternion.identity);
     }
 
     public void Damage()
@@ -293,6 +308,8 @@ public class Player : MonoBehaviour
         StartCoroutine(MultiShotPowerDownRoutine());
     }
 
+
+
     IEnumerator MultiShotPowerDownRoutine()
     {
         yield return new WaitForSeconds(5.0f);
@@ -309,6 +326,18 @@ public class Player : MonoBehaviour
     {
         _barValue = _thrusterCoolDownTimer / 10;
         _bar.transform.localScale = new Vector3(_barValue, _bar.transform.localScale.y, _bar.transform.localScale.z);
+    }
+
+    public void MissileActive()
+    {
+        _missileActive = true;
+        StartCoroutine(_missileTimerRoutine());
+    }
+
+    IEnumerator _missileTimerRoutine()
+    {
+        yield return new WaitForSeconds(20.0f);
+        _missileActive = false;
     }
 
 }
