@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Enemy4 : Enemy
 {
-
     protected override void Movement()
     {
         float x = _target.position.x - transform.position.x;

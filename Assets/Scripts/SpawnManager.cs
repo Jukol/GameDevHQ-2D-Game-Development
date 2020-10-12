@@ -13,11 +13,13 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private int _multiShotToLaunchCount = 2;
     [SerializeField] 
-    private int _numberOfWaves = 10;
+    private int _numberOfWaves = 3;
     [SerializeField]
     private int _waveTimer = 60;
     [SerializeField] 
     private float _timerBetweenWaves;
+    [SerializeField]
+    private GameObject _prefabBoss;
 
     private bool _stopSpawning = false;
     
@@ -31,6 +33,7 @@ public class SpawnManager : MonoBehaviour
     {
         for (int i = 0; i < _numberOfWaves; i++)
         {
+            Debug.Log("Wave " + (i + 1) + " started.");
             float startTime = Time.time;
 
             while (((Time.time - startTime) <= _waveTimer) && _stopSpawning == false)
@@ -43,6 +46,8 @@ public class SpawnManager : MonoBehaviour
             }
             yield return new WaitForSeconds(_timerBetweenWaves);
         }
+
+        SpawnBoss();
     }
 
     IEnumerator SpawnPowerupRoutine()
@@ -71,6 +76,11 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    public void SpawnBoss()
+    {
+        Vector3 posToSpawnBoss = new Vector3(4.5f, 7, 0);
+        GameObject boss = Instantiate(_prefabBoss, posToSpawnBoss, Quaternion.identity);
+    }
     
     public void OnPlayerDeath()
     {

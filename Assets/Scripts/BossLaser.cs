@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyLaser : MonoBehaviour
+public class BossLaser : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 8.0f;
@@ -10,15 +10,15 @@ public class EnemyLaser : MonoBehaviour
     private AudioSource _audioSource;
     [SerializeField]
     private Player _player;
-    private Vector3 _laserDirection;
     private float _laserDisappearPositionByY;
-    private Enemy _parentEnemy;
+
+    // Update is called once per frame
 
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
         _audioSource.Play();
-       
+
         _laserDisappearPositionByY = -8f;
 
         _player = GameObject.Find("Player").GetComponent<Player>();
@@ -27,19 +27,13 @@ public class EnemyLaser : MonoBehaviour
             Debug.LogError("Player is NULL.");
         }
 
-        _parentEnemy = transform.parent.gameObject.GetComponent<Enemy>();
-
-        if (_parentEnemy.BehindPlayer())// shoot back if behind the player
-            _laserDirection = transform.up;
-        else
-            _laserDirection = -transform.up;
     }
     void Update()
     {
-        transform.position += _laserDirection * _speed * Time.deltaTime;
+        transform.position += -transform.up * _speed * Time.deltaTime;
         if (transform.position.y < _laserDisappearPositionByY)
         {
- 
+
             Destroy(this.gameObject);
         }
     }
@@ -52,9 +46,4 @@ public class EnemyLaser : MonoBehaviour
         }
     }
 
-    public void ChangeLaserDirection()
-    {
-        _laserDirection = -_laserDirection;
-        _laserDisappearPositionByY = -_laserDisappearPositionByY;
-    }
 }

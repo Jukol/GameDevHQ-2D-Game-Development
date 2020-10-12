@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-
     [SerializeField]
     protected float _speed = 4.0f;
     [SerializeField]
@@ -45,14 +44,11 @@ public class Enemy : MonoBehaviour
         StartCoroutine(FireLaserAtRandomTime());
         angle = Random.Range(-30f, 30f);
         transform.Rotate(0, 0, angle);
-
-        
     }
 
  
     protected virtual void Update()
     {
-        
         float distance = Vector3.Distance(_target.position, transform.position);
 
         if (distance <= minDistanceToPlayer)

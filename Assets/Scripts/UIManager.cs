@@ -24,9 +24,7 @@ public class UIManager : MonoBehaviour
     private GameManager _gameManager;
     private Player _player;
 
- 
-    // Start is called before the first frame update
-    void Start()
+     void Start()
     {
         _scoreText.text = "Score: " + 0;
         _restartText.SetActive(false);
@@ -68,7 +66,6 @@ public class UIManager : MonoBehaviour
     {
         _ammoText.text = "Ammo: " + ammo + " out of " + maxAmmo;
     }
-
     
     public void OutOfAmmoFlicker()
     {

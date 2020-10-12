@@ -28,8 +28,6 @@ public class Enemy5 : Enemy
         StartCoroutine(FireLaserAtRandomTime());
         angle = Random.Range(-30f, 30f);
         transform.Rotate(0, 0, angle);
-
-        
     }
 
     protected override void Update()
@@ -54,7 +52,6 @@ public class Enemy5 : Enemy
 
     public void DetectPlayersLaser(float laserX)
     {
-        Debug.Log("Laser coming.");
         if (transform.position.x >= laserX)
             StartCoroutine(SmoothMove(newPositionToRight, 0.5f));
         else
